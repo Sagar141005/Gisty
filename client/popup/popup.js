@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const summarizeBtn = document.getElementById("summarize-btn");
   const emptyState = document.getElementById("empty-state");
+  const copyBtn = document.getElementById("copy-btn");
   const summaryContent = document.getElementById("summary-content");
 
   const lengthSelect = document.getElementById("opt-length");
@@ -45,10 +46,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       summaryContent.textContent = "";
+      copyBtn.classList.remove("visible");
 
       while (true) {
         const { done, value } = await reader.read();
-        if (done) break;
+        if (done) {
+          copyBtn.classList.add("visible");
+          break;
+        }
 
         const textChunk = decoder.decode(value, { stream: true });
         summaryContent.textContent += textChunk;
@@ -69,6 +74,23 @@ document.addEventListener("DOMContentLoaded", () => {
       ? "Summarizing..."
       : 'Summarize <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
   }
+
+  copyBtn.addEventListener("click", () => {
+    const text = summaryContent.innerText;
+    if (!text) return;
+
+    navigator.clipboard.writeText(text).then(() => {
+      copyBtn.classList.add("success");
+
+      const originalIcon = copyBtn.innerHTML;
+      copyBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+
+      setTimeout(() => {
+        copyBtn.classList.remove("success");
+        copyBtn.innerHTML = originalIcon;
+      }, 2000);
+    });
+  });
 });
 
 function extractContent() {
