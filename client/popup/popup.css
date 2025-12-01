@@ -1,0 +1,256 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --bg: #ffffff;
+  --fg: #000000;
+  --fg-muted: #666666;
+  --border: #e5e5e5;
+  --btn-bg: #000000;
+  --btn-fg: #ffffff;
+  --btn-hover: #333333;
+  --radius: 8px;
+  --font-sans: "Inter", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a0a0a;
+    --fg: #ededed;
+    --fg-muted: #888888;
+    --border: #333333;
+    --btn-bg: #ffffff;
+    --btn-fg: #000000;
+    --btn-hover: #e5e5e5;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 350px;
+  height: 450px;
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-size: 12px;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+header {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+
+.empty-state {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+ul {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+  animation: fadeIn 0.4s ease-out;
+}
+
+li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  color: var(--fg);
+}
+
+li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--fg-muted);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.options-row {
+  display: flex;
+  gap: 10px;
+}
+
+select {
+  flex: 1;
+  appearance: none;
+  background-color: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 14px;
+}
+
+select:hover {
+  border-color: var(--fg-muted);
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--fg);
+}
+
+.summary-content {
+  font-size: 12px;
+  color: var(--fg);
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+.summary-content {
+  margin-top: -10px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 12px;
+  color: var(--fg-muted);
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--fg);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.blinking-cursor {
+  display: inline-block;
+  animation: blink 1s step-start infinite;
+  opacity: 0.7;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 4px;
+}
