@@ -300,8 +300,14 @@ button:disabled {
 }
 
 @keyframes blink {
-  50% {
+  0%,
+  50%,
+  100% {
     opacity: 0;
+  }
+  25%,
+  75% {
+    opacity: 1;
   }
 }
 

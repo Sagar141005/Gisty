@@ -3,8 +3,11 @@
   "name": "Gisty - AI Page Summarizer",
   "version": "1.0",
   "description": "Summarize webpages instantly using Gisty",
-  "permissions": ["activeTab", "scripting"],
-  "host_permissions": ["https://*/*"],
+  "permissions": ["activeTab", "scripting", "contextMenus"],
+  "host_permissions": ["http://localhost:3000/*", "https://*/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "popup/popup.html",
     "default_title": "Get Gisty Summary"

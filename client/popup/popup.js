@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         main.scrollTop = main.scrollHeight;
       }
     } catch (error) {
-      summaryDiv.innerHTML = `<p style="color: red; text-align: center; font-size: 13px;">${error.message}</p>`;
+      summaryContent.innerHTML = `<p style="color: red; text-align: center; font-size: 13px;">${error.message}</p>`;
     } finally {
       setLoading(false);
     }
