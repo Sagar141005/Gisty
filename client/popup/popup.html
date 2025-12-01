@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gisty</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <header>
+        <div class="brand">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-shredder-icon lucide-shredder"
+          >
+            <path
+              d="M4 13V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v5"
+            />
+            <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+            <path d="M10 22v-5" />
+            <path d="M14 19v-2" />
+            <path d="M18 20v-3" />
+            <path d="M2 13h20" />
+            <path d="M6 20v-3" />
+          </svg>
+          <h1>Gisty</h1>
+        </div>
+        <div class="status-dot"></div>
+      </header>
+
+      <main id="summary-container">
+        <div id="empty-state" class="empty-state">
+          <p>Ready to summarize.</p>
+        </div>
+        <div
+          id="summary-content"
+          class="summary-content"
+          style="display: none"
+        ></div>
+      </main>
+
+      <footer>
+        <div class="options-row">
+          <select id="opt-length">
+            <option value="short">Short</option>
+            <option value="medium" selected>Medium</option>
+            <option value="long">Long</option>
+          </select>
+
+          <select id="opt-style">
+            <option value="professional" selected>Professional</option>
+            <option value="news">News</option>
+            <option value="academic">Academic</option>
+            <option value="casual">Casual</option>
+            <option value="story">Story</option>
+            <option value="sarcastic">Sarcastic</option>
+            <option value="eli5">ELI5 (Simple)</option>
+          </select>
+        </div>
+
+        <button id="summarize-btn">
+          Summarize
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </footer>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>
