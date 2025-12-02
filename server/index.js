@@ -8,13 +8,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-app.use(cors());
-
-app.use(express.json({ limit: "10mb" }));
-
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 20,
@@ -22,7 +16,20 @@ const limiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
 
+    if (origin.startsWith("chrome-extension://")) {
+      return callback(null, true);
+    }
+
+    callback(new Error("Not allowed by CORS"));
+  },
+};
+
+app.use(cors(corsOptions));
+app.use(express.json({ limit: "10mb" }));
 app.use("/summarize", limiter);
 
 app.post("/summarize", async (req, res) => {
