@@ -31,15 +31,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!result) throw new Error("No content found");
 
-      const response = await fetch("http://localhost:3000/summarize", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          text: result,
-          length: lengthSelect.value,
-          style: styleSelect.value,
-        }),
-      });
+      const response = await fetch(
+        "https://gisty-server.up.railway.app/summarize",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: result,
+            length: lengthSelect.value,
+            style: styleSelect.value,
+          }),
+        }
+      );
 
       if (!response.ok) {
         let message = "Gisty couldn't process your request. Please try again.";

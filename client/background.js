@@ -15,15 +15,18 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     });
 
     try {
-      const response = await fetch("http://localhost:3000/summarize", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          text: info.selectionText,
-          length: "short",
-          style: "casual",
-        }),
-      });
+      const response = await fetch(
+        "https://gisty-server.up.railway.app/summarize",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: info.selectionText,
+            length: "short",
+            style: "casual",
+          }),
+        }
+      );
 
       if (!response.ok) throw new Error("Gisty Server Error");
 

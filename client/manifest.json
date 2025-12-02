@@ -4,7 +4,7 @@
   "version": "1.0",
   "description": "Summarize webpages instantly using Gisty",
   "permissions": ["activeTab", "scripting", "contextMenus"],
-  "host_permissions": ["http://localhost:3000/*", "https://*/*"],
+  "host_permissions": ["https://gisty-server.up.railway.app/*", "https://*/*"],
   "background": {
     "service_worker": "background.js"
   },
