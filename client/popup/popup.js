@@ -41,7 +41,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }),
       });
 
-      if (!response.ok) throw new Error("API Error");
+      if (!response.ok) {
+        let message = "Gisty couldn't process your request. Please try again.";
+        try {
+          const data = await response.json();
+          if (data.error) message = data.error;
+        } catch (_) {}
+        throw new Error(message);
+      }
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
