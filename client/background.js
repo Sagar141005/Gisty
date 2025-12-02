@@ -150,26 +150,53 @@ function injectOverlay(state, content = "") {
   } else if (state === "success") {
     const itemsHTML = content
       .split("\n")
-      .filter((line) => line.trim().length)
+      .map((l) => l.trim().replace(/^[\-*•]\s*/, ""))
+      .filter((l) => l.length)
       .map(
         (line) => `
-          <div style="padding-left:16px; margin-bottom:8px; position:relative;">
-            ${line}
-          </div>
-        `
+        <div style="
+          padding-left: 20px;
+          margin-bottom: 12px;
+          position: relative;
+          line-height: 1.6;
+          animation: fadeIn 0.4s ease-out;
+        ">
+          <span style="
+            position:absolute;
+            left:0;
+            top:0;
+            color:${theme.fgMuted};
+          ">—</span>
+          ${line}
+        </div>`
       )
       .join("");
 
     bodyHTML = `
-        <div style="padding:16px; overflow-y:auto; max-height:60vh; line-height:1.6; font-size:12px;">
-          ${itemsHTML}
-        </div>
-        <div style="padding:8px 16px; display:flex; justify-content:flex-end;">
-          <button id="gisty-copy" style="font-size:11px; font-weight:500; color:${theme.fgMuted}; background:transparent; border:1px solid ${theme.border}; padding:4px 8px; border-radius:4px; cursor:pointer;">
-            Copy
-          </button>
-        </div>
-      `;
+      <div style="padding:16px; overflow-y:auto; max-height:60vh;">
+        ${itemsHTML}
+      </div>
+
+      <div style="padding:10px 16px; display:flex; justify-content:flex-end;">
+        <button id="gisty-copy" style="
+          font-size:11px;
+          font-weight:500;
+          color:${theme.fgMuted};
+          background:transparent;
+          border:1px solid ${theme.border};
+          padding:6px 10px;
+          border-radius:6px;
+          cursor:pointer;
+        ">Copy</button>
+      </div>
+
+      <style>
+        @keyframes fadeIn {
+          from { opacity:0; transform:translateY(4px); }
+          to   { opacity:1; transform:translateY(0); }
+        }
+      </style>
+    `;
   }
 
   container.innerHTML = headerHTML + bodyHTML;
@@ -177,20 +204,21 @@ function injectOverlay(state, content = "") {
   document.getElementById("gisty-close").onclick = () => {
     container.style.opacity = "0";
     container.style.transform = "translateY(-10px)";
-    setTimeout(() => container.remove(), 300);
+    setTimeout(() => container.remove(), 200);
   };
 
   if (state === "success") {
-    const copyBtn = document.getElementById("gisty-copy");
-    copyBtn.onclick = () => {
+    const btn = document.getElementById("gisty-copy");
+    btn.onclick = () => {
       navigator.clipboard.writeText(content).then(() => {
-        copyBtn.textContent = "Copied!";
-        copyBtn.style.color = theme.success;
-        copyBtn.style.borderColor = theme.success;
+        btn.textContent = "Copied!";
+        btn.style.color = theme.success;
+        btn.style.borderColor = theme.success;
+
         setTimeout(() => {
-          copyBtn.textContent = "Copy";
-          copyBtn.style.color = theme.fgMuted;
-          copyBtn.style.borderColor = theme.border;
+          btn.textContent = "Copy";
+          btn.style.color = theme.fgMuted;
+          btn.style.borderColor = theme.border;
         }, 2000);
       });
     };
